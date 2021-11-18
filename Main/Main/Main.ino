@@ -5,9 +5,9 @@
 
 rgb_lcd lcd;
 MMA7660 accelmeter;
-int screenNumber = 1;
-bool tilt = true;
-bool tryk = true;
+uint8_t screenNumber = 1;
+uint8_t tilt = 1;
+uint8_t tryk = 1;
 float xAxis, yAxis, zAxis;
 uint8_t navnNr;
 DS1307 clock;
@@ -35,7 +35,7 @@ void loop() {
   } else if (screenNumber == 1) {
     getName();
   } else if (screenNumber == 2) {
-    lcd.print(Temperatur());
+    lcd.print(1.0 / (log(1023.0 / analogRead(A0) - 1.0) / 4275 + 1 / 298.15) - 273.15);
   }
 
   delay(100);

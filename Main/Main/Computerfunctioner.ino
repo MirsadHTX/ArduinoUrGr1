@@ -41,22 +41,17 @@ void DitUr() {
   lcd.print(" ");
 }
 
-float Temperatur() {
-  float t = 1.0 / (log(1023.0 / analogRead(A0) - 1.0) / 4275 + 1 / 298.15) - 273.15;
-  return t;
-}
-
 void StopUr() {
 
 }
 
-char RandomElev[31][17] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W.", "Gustav E.", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Du tryk den knap"};
+char RandomElev[31][10] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W.", "Gustav E.", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Tryk knap"};
 void getName(void) {
   lcd.print(RandomElev[navnNr]);
-  if (digitalRead(A1) == 1 && tryk){
+  if (digitalRead(A1) && tryk){
     navnNr = random(0, 31);
     tryk = false;
-  }else if (digitalRead(A1) == 0) {
+  }else if (!digitalRead(A1)) {
     tryk = true;
   }
 }
