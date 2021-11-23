@@ -41,9 +41,7 @@ void DitUr() {
   lcd.print(" ");
 }
 
-void StopUr() {
 
-}
 
 char RandomElev[31][10] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W.", "Gustav E.", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Tryk knap"};
 void getName(void) {
@@ -54,4 +52,43 @@ void getName(void) {
   }else if (!digitalRead(A1)) {
     tryk = true;
   }
+}
+
+
+
+
+void StopUr()
+{
+  trykNu= digitalRead(A1);
+  if (trykNu == true && trykFoer ==false)
+  {
+    if (urStop==false)
+    {
+       urStop=true;
+   }
+    else 
+    {
+      urStop=false;
+
+      
+     tidFoer = tidNu;
+     lcd.clear();
+    
+    } 
+ 
+  }
+
+
+  
+  if (urStop==false)
+  {
+    tidNu = millis();
+
+    count = tidNu-tidFoer;
+  }
+
+  trykFoer=trykNu;
+  
+  lcd.setCursor(0,0);
+  lcd.print(count/1000);
 }

@@ -10,13 +10,19 @@ uint8_t tilt = 1;
 uint8_t tryk = 1;
 float xAxis, yAxis, zAxis;
 uint8_t navnNr;
+unsigned long tidNu;
+unsigned long tidFoer;
+float count;
+bool trykFoer;
+bool trykNu;
+bool urStop;
 DS1307 clock;
 
 void setup() {
   lcd.begin(16, 2);
   accelmeter.init();
   navnNr = 30;
-
+  tidFoer = millis(); 
 /*  clock.begin(); 
   clock.fillByYMD(2021, 11, 18); //Jan 19,2013
   clock.fillByHMS(9, 50,10 ); //15:28 30"
@@ -37,6 +43,8 @@ void loop() {
   } else if (screenNumber == 2) {
     lcd.print(1.0 / (log(1023.0 / analogRead(A0) - 1.0) / 4275 + 1 / 298.15) - 273.15);
   }
-
+  else if (screenNumber == 3) {
+  StopUr();
+  }
   delay(100);
 }
