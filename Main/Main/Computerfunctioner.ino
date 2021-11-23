@@ -92,3 +92,14 @@ void StopUr()
   lcd.setCursor(0,0);
   lcd.print(count/1000);
 }
+
+
+void Christsmas()
+{
+  lcd.setCursor(0, 0);
+  lcd.print(24-clock.dayOfMonth);
+  lcd.print(" dage til jul");
+  lcd.setCursor(0, 1);
+  lcd.print(12-clock.month);
+  lcd.print(" maaned t. jul");
+}
