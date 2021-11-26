@@ -5,7 +5,8 @@
 
 rgb_lcd lcd;
 MMA7660 accelmeter;
-uint8_t screenNumber = 1;
+uint8_t farver[5][3] = {{0, 255, 0}, {255, 0, 255}, {0, 180, 255}, {255, 0, 0}, {42, 42, 42}};
+uint8_t screenNumber = - 1;
 uint8_t tilt = 1;
 uint8_t tryk = 1;
 float xAxis, yAxis, zAxis;
@@ -15,14 +16,13 @@ unsigned long tidFoer;
 float count;
 bool trykFoer;
 bool trykNu;
-bool urStop;
+bool urStop = true;
 DS1307 clock;
 
 void setup() {
   lcd.begin(16, 2);
   accelmeter.init();
   navnNr = 30;
-  tidFoer = millis(); 
 /*  clock.begin(); 
   clock.fillByYMD(2021, 11, 18); //Jan 19,2013
   clock.fillByHMS(9, 50,10 ); //15:28 30"
@@ -34,7 +34,7 @@ void setup() {
 void loop() {
   TilstandSkift();
   lcd.clear();
-//  lcd.print(navnNr);
+//  lcd.print(screenNumber);
 
   if (screenNumber == 0) {
     DitUr();

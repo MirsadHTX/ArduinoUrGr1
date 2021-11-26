@@ -4,16 +4,16 @@ void TilstandSkift() {
   if (zAxis <= 0.2 && tilt) {
     if (yAxis > 0.2) {
       screenNumber -= 1;
-      if (screenNumber < 0) {
+      if (screenNumber == 255) {
         screenNumber = 0;
       }
     } else {
       screenNumber += 1;
-      if (screenNumber > 4) {
+      if (screenNumber == 5) {
         screenNumber = 4;
       }
     }
-    lcd.setRGB(random(0, 256), random(0, 256), random(0, 256));
+    lcd.setRGB(farver[screenNumber][0], farver[screenNumber][1], farver[screenNumber][2]);
     tilt = false;
     digitalWrite(2,1);
     delay(100);
@@ -47,7 +47,7 @@ void DitUr() {
   lcd.print(" ");
 }
 
-char RandomElev[31][9] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W", "Gustav E", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Tryk knap"};
+char RandomElev[31][9] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W", "Gustav E", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Tryk"};
 void getName(void) {
   lcd.print(RandomElev[navnNr]);
   if (digitalRead(A1) && tryk){
@@ -59,23 +59,21 @@ void getName(void) {
 }
 
 void StopUr() {
-  trykNu = digitalRead(A1);
-  if (trykNu == true && trykFoer == false) {
+  if (digitalRead(A1) && trykFoer == false) {
     if (urStop == false) {
       urStop = true;
     } else {
       urStop = false;
-      tidFoer = tidNu;
+      tidFoer = millis();
       lcd.clear();
     } 
   }
-   
+  
   if (urStop == false) {
-    tidNu = millis();
-    count = tidNu - tidFoer;
+    count = millis() - tidFoer;
   }
-
-  trykFoer = trykNu;
+  
+  trykFoer = digitalRead(A1);
   
   lcd.setCursor(0, 0);
   lcd.print(count / 1000);
