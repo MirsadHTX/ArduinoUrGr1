@@ -3,9 +3,15 @@ void TilstandSkift() {
 
   if (zAxis <= 0.2 && tilt) {
     if (yAxis > 0.2) {
-      screenNumber += 1;
-    } else {
       screenNumber -= 1;
+      if (screenNumber < 0) {
+        screenNumber = 0;
+      }
+    } else {
+      screenNumber += 1;
+      if (screenNumber > 4) {
+        screenNumber = 4;
+      }
     }
     lcd.setRGB(random(0, 256), random(0, 256), random(0, 256));
     tilt = false;
@@ -41,9 +47,7 @@ void DitUr() {
   lcd.print(" ");
 }
 
-
-
-char RandomElev[31][10] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W.", "Gustav E.", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Tryk knap"};
+char RandomElev[31][9] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W", "Gustav E", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Tryk knap"};
 void getName(void) {
   lcd.print(RandomElev[navnNr]);
   if (digitalRead(A1) && tryk){
@@ -54,52 +58,35 @@ void getName(void) {
   }
 }
 
-
-
-
-void StopUr()
-{
-  trykNu= digitalRead(A1);
-  if (trykNu == true && trykFoer ==false)
-  {
-    if (urStop==false)
-    {
-       urStop=true;
-   }
-    else 
-    {
-      urStop=false;
-
-      
-     tidFoer = tidNu;
-     lcd.clear();
-    
+void StopUr() {
+  trykNu = digitalRead(A1);
+  if (trykNu == true && trykFoer == false) {
+    if (urStop == false) {
+      urStop = true;
+    } else {
+      urStop = false;
+      tidFoer = tidNu;
+      lcd.clear();
     } 
- 
   }
-
-
-  
-  if (urStop==false)
-  {
+   
+  if (urStop == false) {
     tidNu = millis();
-
-    count = tidNu-tidFoer;
+    count = tidNu - tidFoer;
   }
 
-  trykFoer=trykNu;
+  trykFoer = trykNu;
   
-  lcd.setCursor(0,0);
-  lcd.print(count/1000);
+  lcd.setCursor(0, 0);
+  lcd.print(count / 1000);
 }
 
 
-void Christsmas()
-{
+void Christsmas() {
   lcd.setCursor(0, 0);
-  lcd.print(24-clock.dayOfMonth);
+  lcd.print(24 - clock.dayOfMonth);
   lcd.print(" dage til jul");
   lcd.setCursor(0, 1);
-  lcd.print(12-clock.month);
+  lcd.print(12 - clock.month);
   lcd.print(" maaned t. jul");
 }

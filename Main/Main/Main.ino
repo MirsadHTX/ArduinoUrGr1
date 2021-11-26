@@ -42,12 +42,9 @@ void loop() {
     getName();
   } else if (screenNumber == 2) {
     lcd.print(1.0 / (log(1023.0 / analogRead(A0) - 1.0) / 4275 + 1 / 298.15) - 273.15);
-  }
-  else if (screenNumber == 3) {
-  StopUr();
-  }
-  else if (screenNumber==4)
-  {
+  } else if (screenNumber == 3) {
+    StopUr();
+  } else if (screenNumber == 4) {
     Christsmas();
   }
   
