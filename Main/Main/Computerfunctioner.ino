@@ -9,8 +9,8 @@ void TilstandSkift() {
       }
     } else {
       screenNumber += 1;
-      if (screenNumber == 5) {
-        screenNumber = 4;
+      if (screenNumber == 6) {
+        screenNumber = 5;
       }
     }
     lcd.setRGB(farver[screenNumber][0], farver[screenNumber][1], farver[screenNumber][2]);
@@ -51,7 +51,7 @@ char RandomElev[31][9] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W", "Gust
 void getName(void) {
   lcd.print(RandomElev[navnNr]);
   if (digitalRead(A1) && tryk){
-    navnNr = random(0, 31);
+    navnNr = random(0, 30);
     tryk = false;
   }else if (!digitalRead(A1)) {
     tryk = true;
@@ -68,12 +68,12 @@ void StopUr() {
       lcd.clear();
     } 
   }
+  trykFoer = digitalRead(A1);
   
   if (urStop == false) {
     count = millis() - tidFoer;
   }
   
-  trykFoer = digitalRead(A1);
   
   lcd.setCursor(0, 0);
   lcd.print(count / 1000);
@@ -87,4 +87,24 @@ void Christsmas() {
   lcd.setCursor(0, 1);
   lcd.print(12 - clock.month);
   lcd.print(" maaned t. jul");
+}
+
+void morse() {
+  lcd.print(check[map(analogRead(A2), 0, 1023, 0, 25)]);
+  if (digitalRead(A1) && tryk){
+    int tal = res[map(analogRead(A2), 0, 1023, 0, 25)];
+    uint8_t i = 0;
+    while (int(tal) > 0) {
+//      lcd.print((tal));
+      digitalWrite(2, 1);
+      delay(100);
+      digitalWrite(2, 0);
+      delay(100);
+      
+      i ++;
+    }
+    tryk = false;
+  }else if (!digitalRead(A1)) {
+    tryk = true;
+  }
 }

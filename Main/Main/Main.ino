@@ -6,7 +6,9 @@
 rgb_lcd lcd;
 MMA7660 accelmeter;
 uint8_t farver[5][3] = {{0, 255, 0}, {255, 0, 255}, {0, 180, 255}, {255, 0, 0}, {42, 42, 42}};
-uint8_t screenNumber = - 1;
+char check[27]= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+int res[26] = {1300, 3111, 3131, 3110, 10, 1131, 3310, 1111, 1100, 1333, 3130, 1311, 3300, 3100, 3330, 1331, 3313, 1310, 1110, 3000, 1130, 1113, 1330, 3113, 3133, 3311};
+uint8_t screenNumber = 4;
 uint8_t tilt = 1;
 uint8_t tryk = 1;
 float xAxis, yAxis, zAxis;
@@ -46,6 +48,8 @@ void loop() {
     StopUr();
   } else if (screenNumber == 4) {
     Christsmas();
+  } else if (screenNumber == 5) {
+    morse();
   }
   
   delay(100);
