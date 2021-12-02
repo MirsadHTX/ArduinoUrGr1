@@ -1,6 +1,6 @@
 void TilstandSkift() {
   accelmeter.getAcceleration(&xAxis, &yAxis, &zAxis); // Tager memory address som input
-
+  //tjekker om axisen blivet tiltet og hvis den gør tager eller ligger til screenNumber
   if (zAxis <= 0.2 && tilt) {
     if (xAxis > 0.2) {
       screenNumber -= 1;
@@ -13,8 +13,10 @@ void TilstandSkift() {
         screenNumber = 5;
       }
     }
+    //sætter farven ud fra hvad skærm det er.
     lcd.setRGB(farver[screenNumber][0], farver[screenNumber][1], farver[screenNumber][2]);
     tilt = false;
+    //Giver Lyd feedback når man skifter
     digitalWrite(2,1);
     delay(100);
     digitalWrite(2,0);
@@ -40,7 +42,7 @@ void DitUr() {
     lcd.print(clock.second, DEC);
     lcd.print("  ");
   }
-
+//printer dato 
   lcd.setCursor(0,1);
   lcd.print(clock.month, DEC);
   lcd.print("/");
@@ -50,7 +52,7 @@ void DitUr() {
   lcd.print(" ");
 }
 
-
+//laver array med alle mennesker i klassen
 char RandomElev[31][9] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W", "Gustav E", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Tryk"};
 void getName(void) {
   lcd.print(RandomElev[navnNr]);
@@ -66,22 +68,26 @@ void getName(void) {
 }
 
 void StopUr() {
+ //Tjekker hvis knappen blivertrykker og den ikke er blevet trykket før 
   if (digitalRead(A1) && trykFoer == false) {
+    //tjekker om uret er stopper
     if (urStop == false) {
       urStop = true;
     } else {
       urStop = false;
+      //Definere tid 
       tidFoer = millis();
       lcd.clear();
     } 
   }
+  //Ser om den er holdt nede 
   trykFoer = digitalRead(A1);
-  
+  //hvis uret stopper så så vis tiden
   if (urStop == false) {
     count = millis() - tidFoer;
   }
   
-  
+  //print count
   lcd.setCursor(0, 0);
   lcd.print(count / 1000);
 }
@@ -89,6 +95,7 @@ void StopUr() {
 
 void Christmas() {
   lcd.setCursor(0, 0);
+ //tjekker hvad måned det er og printer det
   lcd.print(12 - clock.month);
   lcd.print(" maaned(er) og");
   lcd.setCursor(0, 1);
