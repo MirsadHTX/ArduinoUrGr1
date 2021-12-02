@@ -2,7 +2,7 @@ void TilstandSkift() {
   accelmeter.getAcceleration(&xAxis, &yAxis, &zAxis); // Tager memory address som input
 
   if (zAxis <= 0.2 && tilt) {
-    if (yAxis > 0.2) {
+    if (xAxis > 0.2) {
       screenNumber -= 1;
       if (screenNumber == 255) {
         screenNumber = 0;
@@ -51,7 +51,10 @@ char RandomElev[31][9] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W", "Gust
 void getName(void) {
   lcd.print(RandomElev[navnNr]);
   if (digitalRead(A1) && tryk){
-    navnNr = random(0, 30);
+    clock.getTime();
+    for (uint8_t i = 0; i < clock.second; i ++) {
+      navnNr = random(0, 30);
+    }
     tryk = false;
   }else if (!digitalRead(A1)) {
     tryk = true;
@@ -82,11 +85,11 @@ void StopUr() {
 
 void Christsmas() {
   lcd.setCursor(0, 0);
+  lcd.print(12 - clock.month);
+  lcd.print(" maaned(er) og");
+  lcd.setCursor(0, 1);
   lcd.print(24 - clock.dayOfMonth);
   lcd.print(" dage til jul");
-  lcd.setCursor(0, 1);
-  lcd.print(12 - clock.month);
-  lcd.print(" maaned t. jul");
 }
 
 void morse() {
@@ -94,10 +97,10 @@ void morse() {
   if (digitalRead(A1) && tryk){
     int tal = res[map(analogRead(A2), 0, 1023, 0, 25)];
     uint8_t i = 0;
-    while (int(tal) > 0) {
-//      lcd.print((tal));
+    while (tal > 0) {
       digitalWrite(2, 1);
-      delay(100);
+      delay(100 * floor(tal / pow(10, 4 - i)));
+      tal -= floor(tal / pow(10, 4 - i)) * pow(10, 4 - i);
       digitalWrite(2, 0);
       delay(100);
       
