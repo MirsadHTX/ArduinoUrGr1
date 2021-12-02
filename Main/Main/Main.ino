@@ -25,12 +25,12 @@ void setup() {
   lcd.begin(16, 2);
   accelmeter.init();
   navnNr = 30;
-/*  clock.begin(); 
-  clock.fillByYMD(2021, 11, 18); //Jan 19,2013
-  clock.fillByHMS(9, 50,10 ); //15:28 30"
+  /*clock.begin(); 
+  clock.fillByYMD(2021, 12,02); //Jan 19,2013
+  clock.fillByHMS(8, 52,10); //15:28 30"
   clock.fillDayOfWeek(THU);//Saturday
   clock.setTime();//write time to the RTC chip
-  lcd.setRGB(0,0,255);*/
+  */
 }
 
 void loop() {
