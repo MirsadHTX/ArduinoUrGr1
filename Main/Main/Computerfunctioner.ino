@@ -1,7 +1,7 @@
 void TilstandSkift() {
   accelmeter.getAcceleration(&xAxis, &yAxis, &zAxis); // Tager memory address som input
   //tjekker om axisen blivet tiltet og hvis den gør tager eller ligger til screenNumber
-  if (zAxis <= 0.2 && tilt) {
+  if (zAxis <= 0.2 && tilt && !lock) {
     if (xAxis > 0.2) {
       screenNumber -= 1;
       if (screenNumber == 255) {
@@ -36,16 +36,19 @@ void DitUr() {
   //Printer Tid på Lcd Skærm
   lcd.print(clock.hour, DEC);
   lcd.print(":");
-  lcd.print(clock.minute, DEC);
+  if (clock.minute < 10) {
+    lcd.print("0" + String(clock.minute, DEC));
+  } else {
+    lcd.print(clock.minute, DEC);
+  }
   lcd.print(":");
   //tjekker om tid har nummer over 10 hvis ikke læg en 0 string foran
   if (clock.second < 10) {
     lcd.print("0" + String(clock.second, DEC));
-    lcd.print("  ");
   } else {
     lcd.print(clock.second, DEC);
-    lcd.print("  ");
   }
+  lcd.print("  ");
 //printer dato 
   lcd.setCursor(0,1);
   lcd.print(clock.month, DEC);
@@ -73,6 +76,13 @@ void DitUr() {
         break;
       }
     }
+  }
+  
+  if (digitalRead(A1) && tryk){
+    lock = !lock;
+    tryk = false;
+  }else if (!digitalRead(A1)) {
+    tryk = true;
   }
 }
 

@@ -22,6 +22,7 @@ float count;
 bool trykFoer;
 bool trykNu;
 bool urStop = true;
+bool lock = false;
 DS1307 clock;
 
 void setup() {
@@ -41,7 +42,11 @@ void loop() {
   TilstandSkift();
   //clear skærmen så man ikke printer tekst oven i hindanden
   lcd.clear();
-
+  if (lock) {
+    lcd.setCursor(15, 0);
+    lcd.print("L");
+    lcd.setCursor(0, 0);
+  }
   if (screenNumber == 0) {
     DitUr();
   } else if (screenNumber == 1) {
