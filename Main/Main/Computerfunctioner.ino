@@ -6,11 +6,15 @@ void TilstandSkift() {
       screenNumber -= 1;
       if (screenNumber == 255) {
         screenNumber = 0;
+        digitalWrite(2,1);
+        delay(400);
       }
     } else {
       screenNumber += 1;
       if (screenNumber == 6) {
         screenNumber = 5;
+        digitalWrite(2,1);
+        delay(400);
       }
     }
     //sætter farven ud fra hvad skærm det er.
@@ -57,7 +61,7 @@ void DitUr() {
         digitalWrite(2, 1);
         delay(1000);
         digitalWrite(2, 0);
-//        break;
+        break;
       }else if (clock.hour == tid[i][1] && clock.minute == tid[i][2]) {
         digitalWrite(2, 1);
         delay(400);
@@ -66,7 +70,7 @@ void DitUr() {
         digitalWrite(2, 1);
         delay(400);
         digitalWrite(2, 0);
-//        break;
+        break;
       }
     }
   }
