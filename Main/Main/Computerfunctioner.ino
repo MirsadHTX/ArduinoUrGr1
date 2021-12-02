@@ -87,7 +87,7 @@ void StopUr() {
 }
 
 
-void Christsmas() {
+void Christmas() {
   lcd.setCursor(0, 0);
   lcd.print(12 - clock.month);
   lcd.print(" maaned(er) og");

@@ -49,7 +49,7 @@ void loop() {
   } else if (screenNumber == 3) {
     StopUr();
   } else if (screenNumber == 4) {
-    Christsmas();
+    Christmas();
   } else if (screenNumber == 5) {
     morse();
   }
