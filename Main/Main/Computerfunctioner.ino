@@ -25,11 +25,14 @@ void TilstandSkift() {
 
 
 void DitUr() {
+  //Tager tid fra Ur komponenten 
   clock.getTime();
+  //Printer Tid på Lcd Skærm
   lcd.print(clock.hour, DEC);
   lcd.print(":");
   lcd.print(clock.minute, DEC);
   lcd.print(":");
+  //tjekker om tid har nummer over 10 hvis ikke læg en 0 string foran
   if (clock.second < 10) {
     lcd.print("0" + String(clock.second, DEC));
     lcd.print("  ");
@@ -46,6 +49,7 @@ void DitUr() {
   lcd.print(clock.year + 2000, DEC);
   lcd.print(" ");
 }
+
 
 char RandomElev[31][9] = { "Anders", "Emil", "Fahmi", "Freja", "Gustav W", "Gustav E", "Haris", "Ismail", "Jabriil", "Jacob", "Ludvig", "Jeppe", "Jonatan", "Kasper", "Lovro", "Mathias", "Mie", "Mohammad", "Nelisa", "Nicolai", "Pernille", "Rasmus", "Robert", "Sarah", "Silas", "Simon", "Thoeger", "Tobias", "Taaha", "William", "Tryk"};
 void getName(void) {

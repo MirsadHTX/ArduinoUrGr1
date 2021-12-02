@@ -3,6 +3,7 @@
 #include <Wire.h>
 #include "DS1307.h"
 
+//giver alle værdier der bliver brugt
 rgb_lcd lcd;
 MMA7660 accelmeter;
 uint8_t farver[5][3] = {{0, 255, 0}, {255, 0, 255}, {0, 180, 255}, {255, 0, 0}, {42, 42, 42}};
@@ -25,18 +26,19 @@ void setup() {
   lcd.begin(16, 2);
   accelmeter.init();
   navnNr = 30;
-  /*clock.begin(); 
-  clock.fillByYMD(2021, 12,02); //Jan 19,2013
-  clock.fillByHMS(8, 52,10); //15:28 30"
+/*  clock.begin(); 
+  clock.fillByYMD(2021, 11, 18); //Jan 19,2013
+  clock.fillByHMS(9, 50,10 ); //15:28 30"
   clock.fillDayOfWeek(THU);//Saturday
   clock.setTime();//write time to the RTC chip
-  */
+  lcd.setRGB(0,0,255);*/
 }
 
 void loop() {
+  //kalder tilstandskift for at se hvad screenNumber vi er på
   TilstandSkift();
+  //clear skærmen så man ikke printer tekst oven i hindanden
   lcd.clear();
-//  lcd.print(screenNumber);
 
   if (screenNumber == 0) {
     DitUr();
@@ -51,6 +53,6 @@ void loop() {
   } else if (screenNumber == 5) {
     morse();
   }
-  
+  //delay så skærmen den kan følge med
   delay(100);
 }
