@@ -50,6 +50,26 @@ void DitUr() {
   lcd.print("/");
   lcd.print(clock.year + 2000, DEC);
   lcd.print(" ");
+  
+  if (clock.second == 0) {
+    for (i = 0; i < 6; i ++) {
+      if (clock.hour == tid[i][0] && clock.minute == tid[i][2]) {
+        digitalWrite(2, 1);
+        delay(1000);
+        digitalWrite(2, 0);
+//        break;
+      }else if (clock.hour == tid[i][1] && clock.minute == tid[i][2]) {
+        digitalWrite(2, 1);
+        delay(400);
+        digitalWrite(2, 0);
+        delay(200);
+        digitalWrite(2, 1);
+        delay(400);
+        digitalWrite(2, 0);
+//        break;
+      }
+    }
+  }
 }
 
 //laver array med alle mennesker i klassen
@@ -58,7 +78,7 @@ void getName(void) {
   lcd.print(RandomElev[navnNr]);
   if (digitalRead(A1) && tryk){
     clock.getTime();
-    for (uint8_t i = 0; i < clock.second; i ++) {
+    for (i = 0; i < clock.second; i ++) {
       navnNr = random(0, 30);
     }
     tryk = false;
