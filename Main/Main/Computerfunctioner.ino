@@ -79,13 +79,7 @@ void DitUr() {
     }
   }
 
-  //Låser skærmen, så den ikke skifter hvis kassen tiltes
-  if (digitalRead(A1) && tryk){
-    lock = !lock;
-    tryk = false;
-  }else if (!digitalRead(A1)) {
-    tryk = true;
-  }
+  laas();
 }
 
 //laver array med alle mennesker i klassen
@@ -133,10 +127,22 @@ void Christmas() {
   lcd.setCursor(0, 0);
  //tjekker hvad måned det er og printer det
   lcd.print(12 - clock.month);
-  lcd.print(" maaned(er) og");
+  lcd.print(" maaned og");
   lcd.setCursor(0, 1);
   lcd.print(24 - clock.dayOfMonth);
   lcd.print(" dage til jul");
+
+  laas();
+}
+
+void laas() {
+  //Låser skærmen, så den ikke skifter hvis kassen tiltes
+  if (digitalRead(A1) && tryk){
+    lock = !lock;
+    tryk = false;
+  }else if (!digitalRead(A1)) {
+    tryk = true;
+  }
 }
 
 void morse() {
