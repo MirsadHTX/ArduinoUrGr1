@@ -51,9 +51,9 @@ void DitUr() {
   lcd.print("  ");
 //printer dato 
   lcd.setCursor(0,1);
-  lcd.print(clock.month, DEC);
-  lcd.print("/");
   lcd.print(clock.dayOfMonth, DEC);
+  lcd.print("/");
+  lcd.print(clock.month, DEC);
   lcd.print("/");
   lcd.print(clock.year + 2000, DEC);
   lcd.print(" ");
