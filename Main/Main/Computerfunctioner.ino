@@ -57,7 +57,8 @@ void DitUr() {
   lcd.print("/");
   lcd.print(clock.year + 2000, DEC);
   lcd.print(" ");
-  
+
+  //Tjekker om tiden er lig med en af værdierne i "tid", og bipper hvis den er
   if (clock.second == 0) {
     for (i = 0; i < 6; i ++) {
       if (clock.hour == tid[i][0] && clock.minute == tid[i][2]) {
@@ -77,7 +78,8 @@ void DitUr() {
       }
     }
   }
-  
+
+  //Låser skærmen, så den ikke skifter hvis kassen tiltes
   if (digitalRead(A1) && tryk){
     lock = !lock;
     tryk = false;
@@ -138,10 +140,13 @@ void Christmas() {
 }
 
 void morse() {
+  //Henter værdi fra dreje-ting, og konverterer det til bogstav
   lcd.print(check[map(analogRead(A2), 0, 1023, 0, 25)]);
   if (digitalRead(A1) && tryk){
+    //Henter tal-sekvens der repræsenterer bogstavet som morse
     int tal = res[map(analogRead(A2), 0, 1023, 0, 25)];
-    uint8_t i = 0;
+    i = 0;
+    //Bipper sekvensen
     while (tal > 0) {
       digitalWrite(2, 1);
       delay(100 * floor(tal / pow(10, 4 - i)));
