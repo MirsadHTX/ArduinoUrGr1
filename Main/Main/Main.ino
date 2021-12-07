@@ -22,6 +22,7 @@ float count;
 bool trykFoer;
 bool trykNu;
 bool urStop = true;
+bool lock = false;
 DS1307 clock;
 
 void setup() {
@@ -41,13 +42,18 @@ void loop() {
   TilstandSkift();
   //clear skærmen så man ikke printer tekst oven i hindanden
   lcd.clear();
-
+  if (lock) {
+    lcd.setCursor(15, 0);
+    lcd.print("L");
+    lcd.setCursor(0, 0);
+  }
   if (screenNumber == 0) {
     DitUr();
   } else if (screenNumber == 1) {
     getName();
   } else if (screenNumber == 2) {
-    lcd.print(1.0 / (log(1023.0 / analogRead(A0) - 1.0) / 4275 + 1 / 298.15) - 273.15);
+    lcd.print(String(1.0 / (log(1023.0 / analogRead(A0) - 1.0) / 4275 + 1 / 298.15) - 273.15) + " Celsius");
+    laas();
   } else if (screenNumber == 3) {
     StopUr();
   } else if (screenNumber == 4) {
